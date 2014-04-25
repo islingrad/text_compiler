@@ -1,0 +1,62 @@
+<newroom>
+Dungeon
+-Go to garden!Garden!Your dead!
+-Go to hell!Hell!Hi Jorge!
+-Go to hell!Desert!Hi Jorge!
+-Go to hell!Tim!Hi Jorge!
+-Go to hell!James!Hi Jorge!
+-Go to hell!Vikrem!Hi Jorge!
+-Go to hell!Wayne!Hi Jorge!
+-Go to hell!Owen!Hi Jorge!
+
+
+<newroom>
+Hell
+-Go to the glasses store! Acquire Glasses! HNF FOREVER!
+
+<newroom>
+Desert
+-Go to the glasses store! Acquire Glasses! HNF FOREVER!
+<newroom>
+Tim
+-Go to the glasses store! Acquire Glasses! HNF FOREVER!
+<newroom>
+James
+-Go to the glasses store! Acquire Glasses! HNF FOREVER!
+<newroom>
+Vikrem
+-Go to the glasses store! Acquire Glasses! HNF FOREVER!
+<newroom>
+Wayne
+-Go to the glasses store! Acquire Glasses! HNF FOREVER!
+<newroom>
+Owen
+-Go to the glasses store! Acquire Glasses! HNF FOREVER!
+<newroom>
+Kenny
+-Go to the glasses store! Acquire Glasses! HNF FOREVER!
+<newroom>
+Clara
+-Go to the glasses store! Acquire Glasses! HNF FOREVER!
+
+
+<newroom>
+Garden
+-HOBOSUNITE!   Dungeon! HOBOBOSSS!
+-HOBOSUNITE!HOBOTOWN! HOBOBOSSS!
+-HOBOSUNITE!HOBOTOWN! HOBOBOSSS!
+-HOBOSUNITE!HOBOTOWN! HOBOBOSSS!
+-HOBOSUNITE!HOBOTOWN! HOBOBOSSS!
+-HOBOSUNITE!HOBOTOWN! HOBOBOSSS!
+-HOBOSUNITE!HOBOTOWN! HOBOBOSSS!
+-HOBOSUNITE!HOBOTOWN! HOBOBOSSS!
+-HOBOSUNITE!HOBOTOWN! HOBOBOSSS!
+-HOBOSUNITE!HOBOTOWN! HOBOBOSSS!
+-HOBOSUNITE!HOBOTOWN! HOBOBOSSS!
+-HOBOSUNITE!HOBOTOWN! HOBOBOSSS!
+-HOBOSUNITE!HOBOTOWN! HOBOBOSSS!
+-HOBOSUNITE!HOBOTOWN! HOBOBOSSS!
+-HOBOSUNITE!HOBOTOWN! HOBOBOSSS!
+-HOBOSUNITE!HOBOTOWN! HOBOBOSSS!
+
+END
