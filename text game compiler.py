@@ -22,7 +22,7 @@ class room:
         self.questions_list = questions_list
 
 def display_room(room_to_display):
-    print room_entry_text() + " " + room_to_display.name
+    print room_to_display.name
     display_room_prompt(room_to_display)
     local_room_question_list = room_to_display.questions_list
     item_number = 1
@@ -33,12 +33,13 @@ def display_room(room_to_display):
     choice_question = local_room_question_list[choice - 1]
     choice_room_name = choice_question.result## pulls associated room name from the pertinent question
     display_result_prompt(choice_question)
-    time.sleep(.1)
+    time.sleep(2)
     os.system('cls')
     display_room(find_room_in_rooms_list(choice_room_name)) ## displays the room that was in the selected option question
 
 def display_result_prompt(question_to_display): ## this requirest a check to make sure that a prompt exists
-    print question_to_display.result_prompt
+    if question_to_display.result_prompt != False:
+        print question_to_display.result_prompt
 
 def display_room_prompt(room_to_display):
     if room_to_display.prompt != False:
@@ -129,12 +130,15 @@ def line_to_question(line):
     def pull_reply(line):
         if first(line) == "!":
             global prompt_input
-            reply = ""
             prompt_input = rest(line)
-            return reply
+            if prompt_input == '':
+                prompt_input = False
+            return ""
         else:
             return first(line)+pull_reply(rest(line))
     def pull_prompt(line):
+        if line == False:
+            return False
         if first(line) == "!":
             return ""
         else:
