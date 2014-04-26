@@ -1,47 +1,47 @@
 <newroom>
-Dungeon
+Dungeon! A CHILL FLOWS THROUGH YOUR BONES!
 -Go to garden!Garden!Your dead!
--Go to hell!Hell!Hi Jorge!
--Go to hell!Desert!Hi Jorge!
--Go to hell!Tim!Hi Jorge!
--Go to hell!James!Hi Jorge!
--Go to hell!Vikrem!Hi Jorge!
--Go to hell!Wayne!Hi Jorge!
--Go to hell!Owen!Hi Jorge!
+-Go to hella!Hell!Hi Jorge!
+-Go to hellb!Desert!Hi Jorge!
+-Go to hellc!Tim!Hi Jorge!
+-Go to helld!James!Hi Jorge!
+-Go to helle!Vikrem!Hi Jorge!
+-Go to hellf!Wayne!Hi Jorge!
+-Go to hellg2:38 PM 25/04/2014!Owen!Hi Jorge!
 
 
 <newroom>
-Hell
+Hell!
 -Go to the glasses store! Acquire Glasses! HNF FOREVER!
 
 <newroom>
-Desert
+Desert!
 -Go to the glasses store! Acquire Glasses! HNF FOREVER!
 <newroom>
-Tim
+Tim!
 -Go to the glasses store! Acquire Glasses! HNF FOREVER!
 <newroom>
-James
+James!
 -Go to the glasses store! Acquire Glasses! HNF FOREVER!
 <newroom>
-Vikrem
+Vikrem!
 -Go to the glasses store! Acquire Glasses! HNF FOREVER!
 <newroom>
-Wayne
+Wayne!
 -Go to the glasses store! Acquire Glasses! HNF FOREVER!
 <newroom>
-Owen
+Owen!
 -Go to the glasses store! Acquire Glasses! HNF FOREVER!
 <newroom>
-Kenny
+Kenny!
 -Go to the glasses store! Acquire Glasses! HNF FOREVER!
 <newroom>
-Clara
+Clara!
 -Go to the glasses store! Acquire Glasses! HNF FOREVER!
 
 
 <newroom>
-Garden
+Garden!
 -HOBOSUNITE!   Dungeon! HOBOBOSSS!
 -HOBOSUNITE!HOBOTOWN! HOBOBOSSS!
 -HOBOSUNITE!HOBOTOWN! HOBOBOSSS!

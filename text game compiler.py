@@ -1,6 +1,7 @@
 import os
 import time
 import random
+import sys
 input_file = open("input-file.txt", "r")
 
 ## A question: (Listof Question and Answer)
@@ -15,19 +16,20 @@ class question:
 
 ## A room: (Listof Questions)
 class room:
-    def __init__ (self, name, questions_list):
+    def __init__ (self, name, prompt, questions_list):
         self.name = name
-        #self.prompt = prompt
+        self.prompt = prompt
         self.questions_list = questions_list
 
 def display_room(room_to_display):
     print room_entry_text() + " " + room_to_display.name
+    display_room_prompt(room_to_display)
     local_room_question_list = room_to_display.questions_list
     item_number = 1
     for item in local_room_question_list:
         print str(item_number) + ". " + item.question
         item_number +=1
-    choice = input_safeguard("Choose one of the above option numbers", item_number) ## User selects one of the room questions that are listed using an integer 1 to n
+    choice = input_safeguard("Choose one of the above option numbers ", item_number) ## User selects one of the room questions that are listed using an integer 1 to n
     choice_question = local_room_question_list[choice - 1]
     choice_room_name = choice_question.result## pulls associated room name from the pertinent question
     display_result_prompt(choice_question)
@@ -38,6 +40,10 @@ def display_room(room_to_display):
 def display_result_prompt(question_to_display): ## this requirest a check to make sure that a prompt exists
     print question_to_display.result_prompt
 
+def display_room_prompt(room_to_display):
+    if room_to_display.prompt != False:
+        print room_to_display.prompt
+
 def find_room_in_rooms_list(room_name): ## given a room name, returns the associated room in the rooms_list
     for room in rooms_list:
         if room.name == room_name:
@@ -45,17 +51,23 @@ def find_room_in_rooms_list(room_name): ## given a room name, returns the associ
             break
     while True:
         print str(room_name) + " room does not exist"
-
+        print "You must create " + str(room_name) + " room for your game to work"
+        input_safeguard("Type 'Quit' to Exit ")
+        time.sleep(1)
+        
 def first(line):
     if type(line) == str:
-        return "".join(list(line)[0])
+        return line[0]
     else:
         print "Error: " , line , " is not a string."
 
-def input_safeguard(string,cap):
+def input_safeguard(string,cap = False):
     try:
         while True:
-            in_num = int(raw_input(string))
+            quitter = raw_input(string)
+            if quitter== 'quit' or quitter == 'Quit':
+                sys.exit()
+            in_num = int(quitter)
             if in_num in list_add1(range(cap)):
                 return in_num
             else:
@@ -81,10 +93,7 @@ def remove_newlines(text_list):
     return new_list
 
 def rest(line):
-    if type(line) == str:
-        return "".join(list(line)[1:])
-    else:
-        print "Error: " , line , " is not a string."
+    return line[1:]
 
 def room_entry_text(): ## idea for later, allow users to create a file that has room entry texts
     options= []
@@ -102,10 +111,6 @@ def start_game():
         print "There are no valid rooms in your input-file"
     else:
         display_room(rooms_list[0])
-
-
-
-
 
 ## line_to_question: String(containing full question line
         ##Ex. "-question_text:resultant_room!" -> Question(question_text, resultant_room)
@@ -164,15 +169,32 @@ def text_to_list(text):
         text_to_list(text[1:])
 
 def make_rooms():
+    def pull_room_name(line):
+        if first(line) == '!':
+            global room_prompt_input
+            room_prompt_input = rest(line)
+            if room_prompt_input == '':
+                room_prompt_input = False
+            return ''
+        else:
+            return first(line) + pull_room_name(rest(line))
+    def pull_room_prompt(line):
+        if line == False:
+            return False
+        elif line == '!':
+            return ''
+        else:
+            return first(line) + pull_room_prompt(rest(line))
     ready = []
     for i in lol:
         ready.append([i[0], i[1:]])
     def build_room(lol):
-        name= lol[0]
+        name= pull_room_name(lol[0])
+        prompt = pull_room_prompt(room_prompt_input)
         q_list = []
         for q in lol[1]:
             q_list.append(line_to_question(q))
-        return room(name,q_list)
+        return room(name, prompt, q_list)
     for i in ready:
         rooms_list.append(build_room(i))
 
@@ -181,5 +203,4 @@ rooms_list = []
 lol =[]
 text_to_list(full_input_text)
 make_rooms()
-a = line_to_question("-question_here!answer_here!prompt!")
 start_game()
