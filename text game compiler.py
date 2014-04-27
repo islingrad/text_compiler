@@ -2,7 +2,6 @@ import os
 import time
 import random
 import sys
-input_file = open("input-file.txt", "r")
 
 ## A question: (Listof Question and Answer)
 
@@ -21,38 +20,56 @@ class room:
         self.prompt = prompt
         self.questions_list = questions_list
 
+
+## display_room: room -> display_room
+## Consumes a room_to_display and: 
+## 1) Prints the Room name
+## 2) Prints the Room prompt
+## 3) Prints the Room Question list with numbers
+## 4) Takes user choice
+## 5) Displays prompt for question selected
+## 6) Waits . . . .
+## 7) Clears screen
+## 8) Recurses with new choice room
+
 def display_room(room_to_display):
-    print room_to_display.name
-    display_room_prompt(room_to_display)
+    print room_to_display.name#1
+    display_room_prompt(room_to_display)#2
     local_room_question_list = room_to_display.questions_list
     item_number = 1
-    for item in local_room_question_list:
+    for item in local_room_question_list:#3
         print str(item_number) + ". " + item.question
         item_number +=1
-    choice = input_safeguard("Choose one of the above option numbers ", item_number) ## User selects one of the room questions that are listed using an integer 1 to n
+    choice = input_safeguard("Choose one of the above option numbers ", item_number)#4
     choice_question = local_room_question_list[choice - 1]
-    choice_room_name = choice_question.result## pulls associated room name from the pertinent question
-    display_result_prompt(choice_question)
-    time.sleep(.5)
+    display_result_prompt(choice_question)#5
+    time.sleep(.5)#6
     print "."
-    time.sleep(.5)
+    time.sleep(.5)#6
     print "."
-    time.sleep(.5)
+    time.sleep(.5)#6
     print "."
-    time.sleep(.5)
-    print "."
-    os.system('cls')
-    display_room(find_room_in_rooms_list(choice_room_name)) ## displays the room that was in the selected option question
+    time.sleep(.5)#6
+    os.system('cls')#7
+    choice_room_name = choice_question.result
+    display_room(find_room_in_rooms_list(choice_room_name)) # 8
 
-def display_result_prompt(question_to_display): ## this requirest a check to make sure that a prompt exists
+
+## display_result_prompt: Question
+## Consumes a question and if there is a result_prompt, prints the prompt.
+def display_result_prompt(question_to_display):
     if question_to_display.result_prompt != False:
         print question_to_display.result_prompt
 
+## display_room_prompt: Room
+## Consumes a room and if there is a promp, prints the prompt.
 def display_room_prompt(room_to_display):
     if room_to_display.prompt != False:
         print room_to_display.prompt
 
-def find_room_in_rooms_list(room_name): ## given a room name, returns the associated room in the rooms_list
+## find_room_in_rooms_list: String(a room name)
+## Consumes a room name, returns the associated room(object)in the rooms_list
+def find_room_in_rooms_list(room_name): 
     for room in rooms_list:
         if room.name == room_name:
             return room
@@ -62,13 +79,18 @@ def find_room_in_rooms_list(room_name): ## given a room name, returns the associ
         print "You must create " + str(room_name) + " room for your game to work"
         input_safeguard("Type 'Quit' to Exit ")
         time.sleep(1)
-        
+
+## first: String -> String
+## Consumes a String and returns the first character
 def first(line):
     if type(line) == str:
         return line[0]
     else:
         print "Error: " , line , " is not a string."
 
+## input_safeguard: (Num or (Num and Int)) -> Error or Int
+## if given one parameter: input_safeguard is being used because of an error in the input_text, will loop until user types quit, then quits.
+## if given two parameter: Takes user input and ensures its a num between 1 and cap
 def input_safeguard(string,cap = False):
     try:
         while True:
@@ -76,14 +98,17 @@ def input_safeguard(string,cap = False):
             if quitter== 'quit' or quitter == 'Quit':
                 sys.exit()
             in_num = int(quitter)
-            if in_num in list_add1(range(cap)):
-                return in_num
-            else:
-                print "Your number must be between 1 and " + str(cap -1)
+            if cap != False:
+                if in_num in list_add1(range(cap)):
+                    return in_num
+                else:
+                    print "Your number must be between 1 and " + str(cap -1)
     except ValueError:
         print "Try entering an integer next time"
         return input_safeguard(string,cap)
 
+## list_add1: Listof Num -> Listof Num
+## Consumes a lon and adds one to each element
 def list_add1(lon):
     out_list =[]
     for i in lon:
@@ -91,6 +116,9 @@ def list_add1(lon):
     del out_list[len(out_list)-1]
     return out_list
 
+## remove_newlines: Listof Strings -> Listof Strings
+## Removes the last character from each string in the list.
+## Used when reading the input_text file to remove \n at end of each string
 def remove_newlines(text_list):
     new_list = []
     for i in text_list:
@@ -100,9 +128,13 @@ def remove_newlines(text_list):
         new_list.append(out_line)
     return new_list
 
+## rest: (List or String) -> (List or String)
+## Returns all but the first element/character in a list or string 
 def rest(line):
     return line[1:]
 
+## room_entry_text: Null -> String
+## Chooses a random String from a list to display
 def room_entry_text(): ## idea for later, allow users to create a file that has room entry texts
     options= []
     options.append("You casually walk into")
@@ -114,18 +146,23 @@ def room_entry_text(): ## idea for later, allow users to create a file that has 
     options.append("You dig your way into")
     return options[random.randint(0,len(options)-1)]
 
+## start_game: Null -> display_room
+## Checks that user created a minimum of one room and displays the first room created
 def start_game():
     if rooms_list == []:
         print "There are no valid rooms in your input-file"
     else:
         display_room(rooms_list[0])
 
-## line_to_question: String(containing full question line
+## line_to_question: String(containing Question data) -> Question
         ##Ex. "-question_text:resultant_room!" -> Question(question_text, resultant_room)
-## Takes the text after the dash and before the colon and turns it into the question.
-## Takes the text between the colon and ! and turns it into resulting action of selecting that option
+## 1) Returns String from beginning to '!', feeds the rest of the string to 2).
+## 2) Returns from beginning to '!', feeds the rest of the string to 3) or false if rest of string is empty.
+## 3) Returns from beginning to '!' or False if given False
+## 4) Creates question using 1,2,3 , removes leading spaces from 1,2,3
+        
 def line_to_question(line):
-    def pull_query(line):
+    def pull_query(line): #1
         if first(line) == '!':
             global reply_input
             reply_input = rest(line)
@@ -134,7 +171,7 @@ def line_to_question(line):
             return pull_query(rest(line))
         else:
             return first(line) + pull_query(rest(line))
-    def pull_reply(line):
+    def pull_reply(line): #2
         if first(line) == "!":
             global prompt_input
             prompt_input = rest(line)
@@ -143,22 +180,29 @@ def line_to_question(line):
             return ""
         else:
             return first(line)+pull_reply(rest(line))
-    def pull_prompt(line):
+    def pull_prompt(line):#3
         if line == False:
             return False
         if first(line) == "!":
             return ""
         else:
             return first(line) + pull_prompt(rest(line))
-    return question(pull_query(line),trim(pull_reply(reply_input)),pull_prompt(prompt_input))
+    return question(trim(pull_query(line)),trim(pull_reply(reply_input)),trim(pull_prompt(prompt_input))) #4
+
+## trim: String -> String
+## Removes leading spaces in a string
 
 def trim(string):
-    word = ''
-    for i in list(string):
-        if i !=' ':
-            word += i
-    return word
-          
+    if type(string) != str:
+        return string
+    if first(string) == ' ':
+        return trim(rest(string))
+    else:
+        return string
+
+## text_to_list: remove_newlines(input_file) -> (Listof (listof room data))
+## Consumes list of strings given from input_text, with newlines removed
+## creates a list of lists where each nested list is the data for a single room
 def text_to_list(text):
     def full_text_to_lol(full_text):
         fir = full_text[0]
@@ -219,13 +263,30 @@ def make_rooms():
                 print 'IN ROOM: ' + name +"\n\n"
                 while True:
                     input_safeguard("Type quit to exit")
-        return room(name, prompt, q_list)
+        return room(trim(name), trim(prompt), q_list)
     for i in ready:
         rooms_list.append(build_room(i))
 
-full_input_text = remove_newlines(input_file.readlines())
-rooms_list = []
-lol =[]
-text_to_list(full_input_text)
-make_rooms()
-start_game()
+## game_init: Null
+## Begins the game by:
+## 1) Reads and edits the input file into a list
+## 2) Declares global variable (rooms_list)
+## 3) Declares global helper variable (lol)
+## 4) Places formatted input_file data into lol
+## 5) Converts data from lol into rooms, adds rooms to rooms_list
+## 6) Displays first room from room_list
+def game_init():
+    global rooms_list, lol
+    input_file = open("input-file.txt", "r")
+    full_input_text = remove_newlines(input_file.readlines()) 
+    rooms_list = []
+    lol = []
+    text_to_list(full_input_text)
+    make_rooms()
+    start_game()
+
+game_init()
+
+
+
+
