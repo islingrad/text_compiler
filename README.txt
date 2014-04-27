@@ -115,10 +115,12 @@ Hole! You're stuck!
 
 <newroom>
 Home!
--Go Beach!Beach
+-Go Beach!Beach!
 -Go Pool!Pool!
 
 END
+
+
 
 
 

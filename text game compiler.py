@@ -33,7 +33,14 @@ def display_room(room_to_display):
     choice_question = local_room_question_list[choice - 1]
     choice_room_name = choice_question.result## pulls associated room name from the pertinent question
     display_result_prompt(choice_question)
-    time.sleep(2)
+    time.sleep(.5)
+    print "."
+    time.sleep(.5)
+    print "."
+    time.sleep(.5)
+    print "."
+    time.sleep(.5)
+    print "."
     os.system('cls')
     display_room(find_room_in_rooms_list(choice_room_name)) ## displays the room that was in the selected option question
 
@@ -189,15 +196,29 @@ def make_rooms():
             return ''
         else:
             return first(line) + pull_room_prompt(rest(line))
-    ready = []
+    ready = [] 
     for i in lol:
         ready.append([i[0], i[1:]])
     def build_room(lol):
-        name= pull_room_name(lol[0])
-        prompt = pull_room_prompt(room_prompt_input)
+        try:
+            name= pull_room_name(lol[0])
+            prompt = pull_room_prompt(room_prompt_input)
+        except IndexError:
+            print "ERROR MESSAGE: Error in line: \n\n"
+            print lol[0] +"\n\n"
+            while True:
+                input_safeguard("Type quit to exit")
         q_list = []
         for q in lol[1]:
-            q_list.append(line_to_question(q))
+            try:
+                q_list.append(line_to_question(q))
+            except IndexError: ##CREATES AN ERROR ,MESSAGE WHEN input question is bad
+                print 'CRITICAL ERROR!'
+                print 'ERROR MESSAGE: Missing ! in line:\n\n'
+                print q + "\n"
+                print 'IN ROOM: ' + name +"\n\n"
+                while True:
+                    input_safeguard("Type quit to exit")
         return room(name, prompt, q_list)
     for i in ready:
         rooms_list.append(build_room(i))

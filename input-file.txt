@@ -8,7 +8,7 @@ Beach! Very warm here!
 <newroom>
 Pool! Ahhhh swimming is nice!
 - Go home! Home! Home sweet home!
-- Go to Beach! Beach!
+- Go to Beach! B e   a c h!
 
 <newroom>
 Hole! You're stuck!
