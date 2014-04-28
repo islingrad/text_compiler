@@ -231,16 +231,12 @@ def text_to_list(text):
 ## ii) Takes a name line string, extracts the room name, feeds rest of line to iii)
 ## iii) Takes from ii) and extracts prompt if it exists, false if doesn't exist
 ## iv) Makes all the rooms into room_list
-## iv) Does the following:
-## 1) Checks room name/prompt can be pulled properly, if bad !'s (line breaks), throws 
-## 2) 
-## 3)
-## 4)
-## 5)
-## 6)
-## 7)
-## 8)
-## 9)
+
+## Build_rooms does the following:
+## 1) Try if room name/prompt can be pulled properly, if bad !'s (line breaks), deliver error
+## 2) Try if question list line can be pulled if bad !'s (line breaks), deliver error
+## 3) returns a room build with pulls from 1 and 2
+
 def make_rooms():
     def format_list(): ##i
         ready = [] 
@@ -265,28 +261,28 @@ def make_rooms():
             return first(line) + pull_room_prompt(rest(line))
 
     def build_room(lol):
-        try:
+        try: #1
             name= pull_room_name(lol[0])
             prompt = pull_room_prompt(room_prompt_input)
-        except IndexError:
+        except IndexError: #1
             print "ERROR MESSAGE: Error in line: \n\n"
             print lol[0] +"\n\n"
             while True:
                 input_safeguard("Type quit to exit")
-        q_list = []
-        for q in lol[1]:
+        q_list = [] #2
+        for q in lol[1]: #2
             try:
                 q_list.append(line_to_question(q))
-            except IndexError: ##CREATES AN ERROR ,MESSAGE WHEN input question is bad
+            except IndexError: #CREATES AN ERROR ,MESSAGE WHEN input question is bad
                 print 'CRITICAL ERROR!'
                 print 'ERROR MESSAGE: Missing ! in line:\n\n'
                 print q + "\n"
                 print 'IN ROOM: ' + name +"\n\n"
                 while True:
                     input_safeguard("Type quit to exit")
-        return room(trim(name), trim(prompt), q_list)
-    ready = format_list()
-    for i in ready:
+        return room(trim(name), trim(prompt), q_list) #3
+    ready = format_list() # Puts the list in good format
+    for i in ready: # builds for each item in the list
         rooms_list.append(build_room(i))
 
 ## game_init: Null
@@ -307,7 +303,7 @@ def game_init():
     make_rooms()
     start_game()
 
-game_init()
+game_init() ############### STARTS THE GAME ####################
 
 
 
