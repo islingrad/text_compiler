@@ -223,8 +223,31 @@ def text_to_list(text):
     else:
         text_to_list(text[1:])
 
+## make_rooms: Null
+## Uses the global lol, fills rooms_list with rooms (objects)
+## local functions:
+## i) Consumes global lol and outputs a list with room name data
+##    as first elemet and list of questions as second element
+## ii) Takes a name line string, extracts the room name, feeds rest of line to iii)
+## iii) Takes from ii) and extracts prompt if it exists, false if doesn't exist
+## iv) Makes all the rooms into room_list
+## iv) Does the following:
+## 1) Checks room name/prompt can be pulled properly, if bad !'s (line breaks), throws 
+## 2) 
+## 3)
+## 4)
+## 5)
+## 6)
+## 7)
+## 8)
+## 9)
 def make_rooms():
-    def pull_room_name(line):
+    def format_list(): ##i
+        ready = [] 
+        for i in lol:
+            ready.append([i[0], i[1:]])
+        return ready
+    def pull_room_name(line): # iii)
         if first(line) == '!':
             global room_prompt_input
             room_prompt_input = rest(line)
@@ -240,9 +263,7 @@ def make_rooms():
             return ''
         else:
             return first(line) + pull_room_prompt(rest(line))
-    ready = [] 
-    for i in lol:
-        ready.append([i[0], i[1:]])
+
     def build_room(lol):
         try:
             name= pull_room_name(lol[0])
@@ -264,6 +285,7 @@ def make_rooms():
                 while True:
                     input_safeguard("Type quit to exit")
         return room(trim(name), trim(prompt), q_list)
+    ready = format_list()
     for i in ready:
         rooms_list.append(build_room(i))
 
