@@ -33,22 +33,22 @@ class room:
 ## 8) Recurses with new choice room
 
 def display_room(room_to_display):
-    print room_to_display.name#1
+    print(room_to_display.name)#1
     display_room_prompt(room_to_display)#2
     local_room_question_list = room_to_display.questions_list
     item_number = 1
     for item in local_room_question_list:#3
-        print str(item_number) + ". " + item.question
+        print(str(item_number) + ". " + item.question)
         item_number +=1
     choice = input_safeguard("Choose one of the above option numbers ", item_number)#4
     choice_question = local_room_question_list[choice - 1]
     display_result_prompt(choice_question)#5
     time.sleep(.5)#6
-    print "."
+    print(".")
     time.sleep(.5)#6
-    print "."
+    print(".")
     time.sleep(.5)#6
-    print "."
+    print(".")
     time.sleep(.5)#6
     os.system('cls')#7
     choice_room_name = choice_question.result
@@ -59,13 +59,13 @@ def display_room(room_to_display):
 ## Consumes a question and if there is a result_prompt, prints the prompt.
 def display_result_prompt(question_to_display):
     if question_to_display.result_prompt != False:
-        print question_to_display.result_prompt
+        print(question_to_display.result_prompt)
 
 ## display_room_prompt: Room
 ## Consumes a room and if there is a promp, prints the prompt.
 def display_room_prompt(room_to_display):
     if room_to_display.prompt != False:
-        print room_to_display.prompt
+        print(room_to_display.prompt)
 
 ## find_room_in_rooms_list: String(a room name)
 ## Consumes a room name, returns the associated room(object)in the rooms_list
@@ -75,8 +75,8 @@ def find_room_in_rooms_list(room_name):
             return room
             break
     while True:
-        print str(room_name) + " room does not exist"
-        print "You must create " + str(room_name) + " room for your game to work"
+        print(str(room_name) + " room does not exist")
+        print("You must create " + str(room_name) + " room for your game to work")
         input_safeguard("Type 'Quit' to Exit ")
         time.sleep(1)
 
@@ -86,7 +86,7 @@ def first(line):
     if type(line) == str:
         return line[0]
     else:
-        print "Error: " , line , " is not a string."
+        print("Error: " , line , " is not a string.")
 
 ## input_safeguard: (Num or (Num and Int)) -> Error or Int
 ## if given one parameter: input_safeguard is being used because of an error in the input_text, will loop until user types quit, then quits.
@@ -94,7 +94,7 @@ def first(line):
 def input_safeguard(string,cap = False):
     try:
         while True:
-            quitter = raw_input(string)
+            quitter = input(string)
             if quitter== 'quit' or quitter == 'Quit':
                 sys.exit()
             in_num = int(quitter)
@@ -102,9 +102,9 @@ def input_safeguard(string,cap = False):
                 if in_num in list_add1(range(cap)):
                     return in_num
                 else:
-                    print "Your number must be between 1 and " + str(cap -1)
+                    print("Your number must be between 1 and " + str(cap -1))
     except ValueError:
-        print "Try entering an integer next time"
+        print("Try entering an integer next time")
         return input_safeguard(string,cap)
 
 ## list_add1: Listof Num -> Listof Num
@@ -150,7 +150,7 @@ def room_entry_text(): ## idea for later, allow users to create a file that has 
 ## Checks that user created a minimum of one room and displays the first room created
 def start_game():
     if rooms_list == []:
-        print "There are no valid rooms in your input-file"
+        print("There are no valid rooms in your input-file")
     else:
         display_room(rooms_list[0])
 
@@ -265,8 +265,8 @@ def make_rooms():
             name= pull_room_name(lol[0])
             prompt = pull_room_prompt(room_prompt_input)
         except IndexError: #1
-            print "ERROR MESSAGE: Error in line: \n\n"
-            print lol[0] +"\n\n"
+            print("ERROR MESSAGE: Error in line: \n\n")
+            print(lol[0] +"\n\n")
             while True:
                 input_safeguard("Type quit to exit")
         q_list = [] #2
@@ -274,10 +274,10 @@ def make_rooms():
             try:
                 q_list.append(line_to_question(q))
             except IndexError: #CREATES AN ERROR ,MESSAGE WHEN input question is bad
-                print 'CRITICAL ERROR!'
-                print 'ERROR MESSAGE: Missing ! in line:\n\n'
-                print q + "\n"
-                print 'IN ROOM: ' + name +"\n\n"
+                print('CRITICAL ERROR!')
+                print('ERROR MESSAGE: Missing ! in line:\n\n')
+                print(q + "\n")
+                print('IN ROOM: ' + name +"\n\n")
                 while True:
                     input_safeguard("Type quit to exit")
         return room(trim(name), trim(prompt), q_list) #3
